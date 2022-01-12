@@ -15,3 +15,6 @@ nebular angular framework "https://github.com/akveo/ngx-admin"
 
 Generate component
 >ng g c \pages\entities\customer\profile --flat 
+
+Customer Profile
+Id, Name, Phone, Email, Address, Mailing Address

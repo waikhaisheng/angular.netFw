@@ -1,1 +1,15 @@
-<p>profile works!</p>
+<nb-alert *ngIf="nbAlertShow" [status]="nbAlertStatus">{{nbAlertMsg}}</nb-alert>    
+<nb-card>
+    <nb-card-header>
+        Customer Profile
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="source" 
+            (deleteConfirm)="onDeleteConfirm($event)" 
+            (createConfirm)="onCreateConfirm($event)"
+            (editConfirm)="onEditConfirm($event)"
+            >
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>
+  
