@@ -1,8 +1,28 @@
 # angular.netFw
 angular .netFramework
 
+# Database
+Microsoft SQL Server
+>Create Database AngularNetFw
+
+
 # Backend
-Web Api .Net Framework
+Web Api .Net Framework 4.7.2
+### NetFramework
+Web Api
+#### Controllers
+CustomerController.cs
+### Common
+Class Library (.Net Framework)
+### Models
+Class Library (.Net Framework)
+### Database
+Class Library (.Net Framework)
+### Services
+Class Library (.Net Framework)
+
+### UnitTestNetFramework
+Unit Test
 
 # Frontend
 nebular angular framework "https://github.com/akveo/ngx-admin"
@@ -18,3 +38,10 @@ Generate component
 
 Customer Profile
 Id, Name, Phone, Email, Address, Mailing Address
+
+Generate Model
+customer-profile.model.ts
+Id, Name, Phone, Email, Address, Mailing Address
+
+Generate Service
+customer.service.ts
