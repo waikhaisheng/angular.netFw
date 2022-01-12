@@ -21,9 +21,7 @@ namespace Models.Entities
         public string Address { get; set; }
         [Required]
         public string MailingAddress { get; set; }
-        [Required]
         public DateTime Created { get; set; }
-        [Required]
         public DateTime Updated { get; set; }
     }
 }

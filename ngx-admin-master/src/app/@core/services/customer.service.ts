@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CustomerProfile } from '../models/customer-profile.model';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, delay, retry } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class CustomerService{
@@ -15,7 +15,7 @@ export class CustomerService{
     constructor(
         private _http: HttpClient
         ){
-            
+
     }
 
     getBaseUrl() {  
@@ -31,42 +31,28 @@ export class CustomerService{
         return resData;
     }
 
-    save(saveShipper: CustomerProfile): Observable<CustomerProfile>{
+    save(saveCustomerProfile: CustomerProfile): Observable<any>{
+        console.log(saveCustomerProfile);
         let fullUrl = this.getBaseUrl() + this.custUrl;
-
-        let resData = this._http.post<CustomerProfile>(fullUrl, saveShipper, {
-                            headers: this._header,
-                        })
+        let resData = this._http.post(fullUrl, saveCustomerProfile, { headers: this._header })
                         .pipe(
                             catchError(this.handleError)
-                        ); 
+                        );          
         return resData; 
     }
 
-    edit(saveShipper: CustomerProfile): Observable<CustomerProfile>{
+    edit(saveShipper: CustomerProfile): Observable<any>{
         let fullUrl = this.getBaseUrl() + this.custUrl;
-
-        let resData = this._http.put<CustomerProfile>(fullUrl, saveShipper, {
-                            headers: this._header,
-                        })
+        let resData = this._http.put(fullUrl, saveShipper, { headers: this._header })
                         .pipe(
                             catchError(this.handleError)
                         );
         return resData;  
     }
 
-    delete(delShipperId: number): Observable<CustomerProfile>{
-        let fullUrl = this.getBaseUrl() + this.custUrl;
-
-        let reqParams = new HttpParams();
-        reqParams = reqParams.append('id', delShipperId);
-        const options = {
-            headers: this._header,
-            params: reqParams,
-            body: {
-            },
-          };
-        let resData = this._http.delete<CustomerProfile>(fullUrl, options)
+    delete(delId: number): Observable<any>{
+        let fullUrl = this.getBaseUrl() + this.custUrl + "/" + delId;
+        let resData = this._http.delete(fullUrl)
                         .pipe(
                             catchError(this.handleError)
                         ); 

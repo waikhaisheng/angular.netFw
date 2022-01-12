@@ -87,7 +87,6 @@ export class ProfileComponent implements OnInit {
         )
       ))
     .subscribe((data: any) => {
-      console.log(data);
       let rdata: any[] = data.Result;
       this.source.load(rdata);
       // this.showAlert(NgAlertStatusEnum.success, "Data loaded.", 2000);
@@ -97,15 +96,47 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  onDeleteConfirm(event): void {
-    
-  }
-
   onCreateConfirm(event):void {
-    
+    if (window.confirm('Are you sure you want to add?')) {
+      this._customerService.save(event.newData).subscribe((data: any) => {
+        // this.showAlert(NgAlertStatusEnum.success, "Data created.", 2000);
+        event.confirm.resolve();
+      },
+      err => {
+        // this.showAlert(NgAlertStatusEnum.danger, err, 5000);
+      });
+    } else {
+      event.confirm.reject();
+    }
   }
 
   onEditConfirm(event):void {
-    
+    if (window.confirm('Are you sure you want to edit?')) {
+      let newData = event.newData;
+      newData.shipperID = event.data.Id;
+      this._customerService.edit(newData).subscribe((data: any) => {
+        // this.showAlert(NgAlertStatusEnum.success, "Data edited.", 2000);
+        event.confirm.resolve();
+      },
+      err => {
+        // this.showAlert(NgAlertStatusEnum.danger, err, 5000);
+      });
+    } else {
+      event.confirm.reject();
+    }
+  }
+
+  onDeleteConfirm(event): void {
+    if (window.confirm('Are you sure you want to delete?')) {
+      this._customerService.delete(event.data.Id).subscribe((data: any) => {
+        // this.showAlert(NgAlertStatusEnum.warning, "Data deleted.", 2000);
+        event.confirm.resolve();
+      },
+      err => {
+        // this.showAlert(NgAlertStatusEnum.danger, err, 5000);
+      });
+    } else {
+      event.confirm.reject();
+    }
   }
 }
