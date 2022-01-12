@@ -2,6 +2,7 @@
 using Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace Database.Customers
         private string _uspAddCustomerProfile = "uspCustomerProfileAdd";
         private string _uspUpdateCustomerProfile = "uspCustomerProfileUpdate";
         private string _uspDeleteCustomerProfile = "uspCustomerProfileDelete";
+        public CustomerProfileDbContext() : base ()
+        {
+
+        }
         public CustomerProfileDbContext(string dbConnectionString) : base (dbConnectionString)
         {
 
