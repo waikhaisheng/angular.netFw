@@ -18,11 +18,13 @@ Class Library (.Net Framework)
 Class Library (.Net Framework)
 ### Database
 Class Library (.Net Framework)
+>nuget install "System.Configuration.ConfigurationManager"
 ### Services
 Class Library (.Net Framework)
 
 ### UnitTestNetFramework
-Unit Test
+Setup HttpServer
+>nuget install "Microsoft.AspNet.WebApi.Core"
 
 # Frontend
 nebular angular framework "https://github.com/akveo/ngx-admin"

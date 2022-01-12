@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ResponseBase.cs" />
+    <Compile Include="Controllers\CustomerModels\AddCustomerProfileRes.cs" />
+    <Compile Include="Controllers\CustomerModels\DeleteCustomerProfileRes.cs" />
+    <Compile Include="Controllers\CustomerModels\GetCustomerProfileRes.cs" />
+    <Compile Include="Controllers\CustomerModels\UpdateCustomerProfileRes.cs" />
     <Compile Include="Entities\CustomerProfile.cs" />
     <Compile Include="Enums\ApiStatusEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
