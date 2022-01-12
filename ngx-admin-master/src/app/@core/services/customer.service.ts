@@ -19,7 +19,7 @@ export class CustomerService{
     }
 
     getBaseUrl() {  
-        return "https://localhost:44328/";
+        return "https://localhost:44367/";
      }  
 
     getCustomerProfile(): Observable<CustomerProfile[]>{

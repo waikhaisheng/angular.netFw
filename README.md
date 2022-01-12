@@ -10,6 +10,7 @@ Microsoft SQL Server
 Web Api .Net Framework 4.7.2
 ### NetFramework
 Web Api
+>nuget install "Microsoft.AspNet.WebApi.Cors"
 #### Controllers
 CustomerController.cs
 ### Common

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SmartTableData } from '../../../@core/data/smart-table';
 import { retryWhen, delay, tap } from 'rxjs/operators';
+import { CustomerService } from '../../../@core/services/customer.service';
+import { CustomerProfile } from '../../../@core/models/customer-profile.model';
 
 @Component({
   selector: 'ngx-profile',
@@ -29,28 +31,28 @@ export class ProfileComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      CustomerID: {
+      Id: {
         title: 'ID',
         type: 'string',
         editable: false,
       },
-      customerName: {
+      Name: {
         title: 'Name',
         type: 'string',
       },
-      customerPhone: {
+      Phone: {
         title: 'Phone',
         type: 'string',
       },
-      customerEmail: {
+      Email: {
         title: 'Email',
         type: 'string',
       },
-      customerAddress: {
+      Address: {
         title: 'Address',
         type: 'string',
       },
-      customerMailingAddress: {
+      MailingAddress: {
         title: 'Mailing Address',
         type: 'string',
       },
@@ -64,9 +66,35 @@ export class ProfileComponent implements OnInit {
   nbAlertMsg: string = "";
   private _userToken: string;
 
-  constructor() { }
+  constructor(private _customerService: CustomerService) { }
 
   ngOnInit(): void {
+    this._customerService.getCustomerProfile()
+    .pipe(
+      retryWhen(errors =>
+        errors.pipe(
+          delay(10000),
+          tap(errorStatus => {
+            //stop timeout if error
+            //this.stopInfoTimeOut();
+            //parse the error, depending on the return from the http.get
+            if (!errorStatus.includes('504')) {
+              throw errorStatus;
+            }
+            //run timeout when trying a new request
+            //this.runInfoTimeout();
+          })
+        )
+      ))
+    .subscribe((data: any) => {
+      console.log(data);
+      let rdata: any[] = data.Result;
+      this.source.load(rdata);
+      // this.showAlert(NgAlertStatusEnum.success, "Data loaded.", 2000);
+    },
+    err => {
+      // this.showAlert(NgAlertStatusEnum.danger, err, 5000);
+    });
   }
 
   onDeleteConfirm(event): void {

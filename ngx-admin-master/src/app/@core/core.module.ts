@@ -53,6 +53,8 @@ import { VisitorsAnalyticsService } from './mock/visitors-analytics.service';
 import { SecurityCamerasService } from './mock/security-cameras.service';
 import { MockDataModule } from './mock/mock-data.module';
 
+import { CustomerService } from './services/customer.service';
+
 const socialLinks = [
   {
     url: 'https://github.com/akveo/nebular',
@@ -143,6 +145,8 @@ export const NB_CORE_PROVIDERS = [
   PlayerService,
   SeoService,
   StateService,
+  
+  CustomerService,
 ];
 
 @NgModule({

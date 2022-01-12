@@ -13,6 +13,7 @@ using System.Web.Http;
 
 namespace NetFramework.Controllers
 {
+    [ApiCorsPolicy]
     [RoutePrefix("api/Customer")]
     [ApiUnhandledExceptionFilter]
     [ApiBaseActionFilter]
