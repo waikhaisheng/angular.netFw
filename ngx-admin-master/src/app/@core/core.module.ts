@@ -145,7 +145,6 @@ export const NB_CORE_PROVIDERS = [
   PlayerService,
   SeoService,
   StateService,
-  
   CustomerService,
 ];
 

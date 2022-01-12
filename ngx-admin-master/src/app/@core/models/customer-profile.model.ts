@@ -11,7 +11,8 @@ export class CustomerProfile {
         customerPhone: string,
         customerEmail: string,
         customerAddress: string,
-        customerMailingAddress: string){
+        customerMailingAddress: string,
+        ) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerPhone = customerPhone;

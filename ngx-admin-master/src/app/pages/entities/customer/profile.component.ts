@@ -8,7 +8,7 @@ import { NgAlertStatusEnum } from '../../../@core/enums/ng-alert-status-enum';
 @Component({
   selector: 'ngx-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
   settings = {
@@ -61,8 +61,8 @@ export class ProfileComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   nbAlertShow: boolean = false;
-  nbAlertStatus: string = "";
-  nbAlertMsg: string = "";
+  nbAlertStatus: string = '';
+  nbAlertMsg: string = '';
 
   dangerTimeout: number = 10000;
   successTimeout: number = 2000;
@@ -80,57 +80,56 @@ export class ProfileComponent implements OnInit {
             if (!errorStatus.includes('504')) {
               throw errorStatus;
             }
-          })
-        )
+          }),
+        ),
       ))
     .subscribe((data: any) => {
-      let rdata: any[] = data.Result;
+      const rdata: any[] = data.Result;
       this.source.load(rdata);
-      this.showAlert(NgAlertStatusEnum.success, "Data loaded.", this.successTimeout);
+      this.showAlert(NgAlertStatusEnum.success, 'Data loaded.', this.successTimeout);
     },
     err => {
       this.showAlert(NgAlertStatusEnum.danger, err, this.dangerTimeout);
     });
   }
 
-  onCreateConfirm(event):void {
+  onCreateConfirm(event): void {
     if (window.confirm('Are you sure you want to add?')) {
       let returnMsg = '';
-      
-      if(event.newData == null){
-        returnMsg = returnMsg + "[Insert data empty]";
+      if (event.newData === null) {
+        returnMsg = returnMsg + '[Insert data empty]';
       }
-      if(event.newData.Id == ''){
-        returnMsg = returnMsg + "[Id empty]";
+      if (event.newData.Id === '') {
+        returnMsg = returnMsg + '[Id empty]';
       }
-      if(event.newData.Email == ''){
-        returnMsg = returnMsg + "[Email empty]";
+      if (event.newData.Email === '') {
+        returnMsg = returnMsg + '[Email empty]';
       }
-      if(event.newData.Address == ''){
-        returnMsg = returnMsg + "[Address empty]";
+      if (event.newData.Address === '') {
+        returnMsg = returnMsg + '[Address empty]';
       }
-      if(event.newData.MailingAddress == ''){
-        returnMsg = returnMsg + "[Mailing Address empty]";
+      if (event.newData.MailingAddress === '') {
+        returnMsg = returnMsg + '[Mailing Address empty]';
       }
-      if(event.newData.Name == ''){
-        returnMsg = returnMsg + "[Name empty]";
+      if (event.newData.Name === '') {
+        returnMsg = returnMsg + '[Name empty]';
       }
-      if(event.newData.Phone == ''){
-        returnMsg = returnMsg + "[Phone empty]";
+      if (event.newData.Phone === '') {
+        returnMsg = returnMsg + '[Phone empty]';
       }
-      if(!this.validateEmail(event.newData.Email) && event.newData.Email != ''){
-        returnMsg = returnMsg + "[Email invalid]";
+      if (!this.validateEmail(event.newData.Email) && event.newData.Email !== '') {
+        returnMsg = returnMsg + '[Email invalid]';
       }
-      if(!this.validatePhone(event.newData.Phone) && event.newData.Phone != ''){
-        returnMsg = returnMsg + "[Phone invalid]";
+      if (!this.validatePhone(event.newData.Phone) && event.newData.Phone !== '') {
+        returnMsg = returnMsg + '[Phone invalid]';
       }
-      if(returnMsg != ''){
+      if (returnMsg !== '') {
         this.showAlert(NgAlertStatusEnum.warning, returnMsg, this.warningTimeout);
         return;
       }
 
       this._customerService.save(event.newData).subscribe((data: any) => {
-        this.showAlert(NgAlertStatusEnum.success, "Data created.", this.successTimeout);
+        this.showAlert(NgAlertStatusEnum.success, 'Data created.', this.successTimeout);
         event.confirm.resolve();
       },
       err => {
@@ -141,46 +140,45 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  onEditConfirm(event):void {
+  onEditConfirm(event): void {
     if (window.confirm('Are you sure you want to edit?')) {
       let returnMsg = '';
-      
-      if(event.newData == null){
-        returnMsg = returnMsg + "[Insert data empty]";
+      if (event.newData === null) {
+        returnMsg = returnMsg + '[Insert data empty]';
       }
-      if(event.newData.Id == ''){
-        returnMsg = returnMsg + "[Id empty]";
+      if (event.newData.Id === '') {
+        returnMsg = returnMsg + '[Id empty]';
       }
-      if(event.newData.Email == ''){
-        returnMsg = returnMsg + "[Email empty]";
+      if (event.newData.Email === '') {
+        returnMsg = returnMsg + '[Email empty]';
       }
-      if(event.newData.Address == ''){
-        returnMsg = returnMsg + "[Address empty]";
+      if (event.newData.Address === '') {
+        returnMsg = returnMsg + '[Address empty]';
       }
-      if(event.newData.MailingAddress == ''){
-        returnMsg = returnMsg + "[Mailing Address empty]";
+      if (event.newData.MailingAddress === '') {
+        returnMsg = returnMsg + '[Mailing Address empty]';
       }
-      if(event.newData.Name == ''){
-        returnMsg = returnMsg + "[Name empty]";
+      if (event.newData.Name === '') {
+        returnMsg = returnMsg + '[Name empty]';
       }
-      if(event.newData.Phone == ''){
-        returnMsg = returnMsg + "[Phone empty]";
+      if (event.newData.Phone === '') {
+        returnMsg = returnMsg + '[Phone empty]';
       }
-      if(!this.validateEmail(event.newData.Email) && event.newData.Email != ''){
-        returnMsg = returnMsg + "[Email invalid]";
+      if (!this.validateEmail(event.newData.Email) && event.newData.Email !== '') {
+        returnMsg = returnMsg + '[Email invalid]';
       }
-      if(!this.validatePhone(event.newData.Phone) && event.newData.Phone != ''){
-        returnMsg = returnMsg + "[Phone invalid]";
+      if (!this.validatePhone(event.newData.Phone) && event.newData.Phone !== '') {
+        returnMsg = returnMsg + '[Phone invalid]';
       }
-      if(returnMsg != ''){
+      if (returnMsg !== '') {
         this.showAlert(NgAlertStatusEnum.warning, returnMsg, this.warningTimeout);
         return;
       }
 
-      let newData = event.newData;
+      const newData = event.newData;
       newData.Id = event.data.Id;
       this._customerService.edit(newData).subscribe((data: any) => {
-        this.showAlert(NgAlertStatusEnum.success, "Data edited.", this.successTimeout);
+        this.showAlert(NgAlertStatusEnum.success, 'Data edited.', this.successTimeout);
         event.confirm.resolve();
       },
       err => {
@@ -194,7 +192,7 @@ export class ProfileComponent implements OnInit {
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this._customerService.delete(event.data.Id).subscribe((data: any) => {
-        this.showAlert(NgAlertStatusEnum.warning, "Data deleted.", this.successTimeout);
+        this.showAlert(NgAlertStatusEnum.warning, 'Data deleted.', this.successTimeout);
         event.confirm.resolve();
       },
       err => {
@@ -204,7 +202,7 @@ export class ProfileComponent implements OnInit {
       event.confirm.reject();
     }
   }
-  private showAlert(nbAlertStatus: NgAlertStatusEnum, msg: any, timeout: number): void{
+  private showAlert(nbAlertStatus: NgAlertStatusEnum, msg: any, timeout: number): void {
     this.nbAlertShow = true;
     this.nbAlertStatus = NgAlertStatusEnum[nbAlertStatus];
     this.nbAlertMsg = msg;
@@ -212,18 +210,18 @@ export class ProfileComponent implements OnInit {
       this.nbAlertShow = false;
     }, timeout);
   }
-  private validateEmail(email){
+  private validateEmail(email) {
     return String(email)
     .toLowerCase()
     .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     );
   }
-  private validatePhone(phone){
+  private validatePhone(phone) {
     return String(phone)
     .toLowerCase()
     .match(
-      /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g
+      /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g,
     );
   }
 }

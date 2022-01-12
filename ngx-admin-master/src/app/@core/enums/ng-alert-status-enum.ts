@@ -3,5 +3,5 @@ export enum NgAlertStatusEnum {
     success,
     info,
     warning,
-    danger   
+    danger,
 }

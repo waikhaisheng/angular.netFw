@@ -8,7 +8,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'CustomerProfile',
         link: '/pages/entities/smart-table-customer-profile',
-      }
+      },
     ],
-  }
+  },
 ];
