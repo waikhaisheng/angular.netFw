@@ -12,3 +12,6 @@ nebular angular framework "https://github.com/akveo/ngx-admin"
 
 ## Start angular
 >ng serve -o
+
+Generate component
+>ng g c \pages\entities\customer\profile --flat 

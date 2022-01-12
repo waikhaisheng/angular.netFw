@@ -11,6 +11,11 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
+      path: 'entities',
+      loadChildren: () => import('./entities/entities.module')
+        .then(m => m.EntitiesModule),
+    },
+    {
       path: 'dashboard',
       component: ECommerceComponent,
     },

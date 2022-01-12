@@ -17,6 +17,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
+    title: 'Entities',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'CustomerProfile',
+        link: '/pages/entities/smart-table-customer-profile',
+      }
+    ],
+  },
+  {
     title: 'Layout',
     icon: 'layout-outline',
     children: [
