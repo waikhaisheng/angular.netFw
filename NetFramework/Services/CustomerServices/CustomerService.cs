@@ -1,4 +1,5 @@
-﻿using Database.Customers;
+﻿using Common.Utils;
+using Database.Customers;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,25 @@ namespace Services.CustomerServices
         }
         public CustomerProfile AddCustomerProfile(CustomerProfile customerProfile)
         {
+            if (customerProfile == null)
+                throw new ArgumentNullException();
+            if (!ValidateUtil.ValidateEmail(customerProfile.Email))
+                throw new ArgumentException("Email in valid.");
+            if (!ValidateUtil.ValidatePhone(customerProfile.Phone))
+                throw new ArgumentException("Phone in valid.");
+
             var cp = _customerProfileDbContext.AddCustomerProfile(customerProfile);
             return cp;
         }
         public CustomerProfile UpdateCustomerProfile(CustomerProfile customerProfile)
         {
+            if (customerProfile == null)
+                throw new ArgumentNullException();
+            if (!ValidateUtil.ValidateEmail(customerProfile.Email))
+                throw new ArgumentException("Email in valid.");
+            if (!ValidateUtil.ValidatePhone(customerProfile.Phone))
+                throw new ArgumentException("Phone in valid.");
+
             var cp = _customerProfileDbContext.UpdateCustomerProfile(customerProfile);
             return cp;
         }
