@@ -38,6 +38,10 @@ namespace NetFramework.Filters
                 }
                 catch (Exception)
                 {
+                    if (errorEx != null)
+                    {
+                        errorStr = $"[{errorStr}][{errorEx}]";
+                    }
                     errorRes = new ResponseBase(ApiStatusEnum.Error, errorStr);
                 }
                 filterContext.Response = filterContext.Request.CreateResponse(

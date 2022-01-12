@@ -36,6 +36,7 @@ namespace NetFramework.Controllers
         [Route("Profile")]
         public IHttpActionResult AddCustomerProfile(CustomerProfile customerProfile)
         {
+            customerProfile.Id = Guid.NewGuid();
             var data = _customerService.AddCustomerProfile(customerProfile);
             var ret = new AddCustomerProfileRes(ApiStatusEnum.OK, ApiStatusEnum.OK.GetEnumDescription()) { Result = data };
             return Ok(ret);

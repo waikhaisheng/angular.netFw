@@ -32,7 +32,6 @@ export class CustomerService{
     }
 
     save(saveCustomerProfile: CustomerProfile): Observable<any>{
-        console.log(saveCustomerProfile);
         let fullUrl = this.getBaseUrl() + this.custUrl;
         let resData = this._http.post(fullUrl, saveCustomerProfile, { headers: this._header })
                         .pipe(
@@ -68,6 +67,6 @@ export class CustomerService{
         }
         
         return throwError(
-          'Something bad happened, please try again later.');
+          'Something bad happened, please try again later.' + JSON.stringify(error.error));
     }
 }

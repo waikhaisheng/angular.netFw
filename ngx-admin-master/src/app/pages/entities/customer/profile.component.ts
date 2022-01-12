@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActivatedRoute, Router } from '@angular/router';
 
-import { SmartTableData } from '../../../@core/data/smart-table';
 import { retryWhen, delay, tap } from 'rxjs/operators';
 import { CustomerService } from '../../../@core/services/customer.service';
-import { CustomerProfile } from '../../../@core/models/customer-profile.model';
+import { NgAlertStatusEnum } from '../../../@core/enums/ng-alert-status-enum';
 
 @Component({
   selector: 'ngx-profile',
@@ -35,6 +33,7 @@ export class ProfileComponent implements OnInit {
         title: 'ID',
         type: 'string',
         editable: false,
+        hide: true,
       },
       Name: {
         title: 'Name',
@@ -64,7 +63,6 @@ export class ProfileComponent implements OnInit {
   nbAlertShow: boolean = false;
   nbAlertStatus: string = "";
   nbAlertMsg: string = "";
-  private _userToken: string;
 
   constructor(private _customerService: CustomerService) { }
 
@@ -75,35 +73,30 @@ export class ProfileComponent implements OnInit {
         errors.pipe(
           delay(10000),
           tap(errorStatus => {
-            //stop timeout if error
-            //this.stopInfoTimeOut();
-            //parse the error, depending on the return from the http.get
             if (!errorStatus.includes('504')) {
               throw errorStatus;
             }
-            //run timeout when trying a new request
-            //this.runInfoTimeout();
           })
         )
       ))
     .subscribe((data: any) => {
       let rdata: any[] = data.Result;
       this.source.load(rdata);
-      // this.showAlert(NgAlertStatusEnum.success, "Data loaded.", 2000);
+      this.showAlert(NgAlertStatusEnum.success, "Data loaded.", 2000);
     },
     err => {
-      // this.showAlert(NgAlertStatusEnum.danger, err, 5000);
+      this.showAlert(NgAlertStatusEnum.danger, err, 5000);
     });
   }
 
   onCreateConfirm(event):void {
     if (window.confirm('Are you sure you want to add?')) {
       this._customerService.save(event.newData).subscribe((data: any) => {
-        // this.showAlert(NgAlertStatusEnum.success, "Data created.", 2000);
+        this.showAlert(NgAlertStatusEnum.success, "Data created.", 2000);
         event.confirm.resolve();
       },
       err => {
-        // this.showAlert(NgAlertStatusEnum.danger, err, 5000);
+        this.showAlert(NgAlertStatusEnum.danger, err, 5000);
       });
     } else {
       event.confirm.reject();
@@ -115,11 +108,11 @@ export class ProfileComponent implements OnInit {
       let newData = event.newData;
       newData.shipperID = event.data.Id;
       this._customerService.edit(newData).subscribe((data: any) => {
-        // this.showAlert(NgAlertStatusEnum.success, "Data edited.", 2000);
+        this.showAlert(NgAlertStatusEnum.success, "Data edited.", 2000);
         event.confirm.resolve();
       },
       err => {
-        // this.showAlert(NgAlertStatusEnum.danger, err, 5000);
+        this.showAlert(NgAlertStatusEnum.danger, err, 5000);
       });
     } else {
       event.confirm.reject();
@@ -129,14 +122,22 @@ export class ProfileComponent implements OnInit {
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this._customerService.delete(event.data.Id).subscribe((data: any) => {
-        // this.showAlert(NgAlertStatusEnum.warning, "Data deleted.", 2000);
+        this.showAlert(NgAlertStatusEnum.warning, "Data deleted.", 2000);
         event.confirm.resolve();
       },
       err => {
-        // this.showAlert(NgAlertStatusEnum.danger, err, 5000);
+        this.showAlert(NgAlertStatusEnum.danger, err, 5000);
       });
     } else {
       event.confirm.reject();
     }
+  }
+  private showAlert(nbAlertStatus: NgAlertStatusEnum, msg: any, timeout: number): void{
+    this.nbAlertShow = true;
+    this.nbAlertStatus = NgAlertStatusEnum[nbAlertStatus];
+    this.nbAlertMsg = msg;
+    setTimeout(() => {
+      this.nbAlertShow = false;
+    }, timeout);
   }
 }
